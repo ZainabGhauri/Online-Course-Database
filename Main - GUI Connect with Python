@@ -1,0 +1,385 @@
+from ctypes import windll
+from tkinter import *
+import mysql.connector
+from tkinter import ttk
+
+
+def back(currFrame):
+    currFrame.destroy()
+    main_window_frame.tkraise()
+
+
+def sign_up():
+    sign_up_frame = Frame()
+    sign_up_frame.tkraise()
+    message = Label(sign_up_frame)
+
+    def execute():
+        # Make connection
+        connection = mysql.connector.connect(
+            host="localhost",
+            user="root",
+            passwd="776677",
+            database="online_courses"
+        )
+        # create cursor
+        cursor = connection.cursor()
+        try:
+            cursor.execute("INSERT INTO user VALUES(\"{}\", \"{}\", \"{}\", \"{}\", \"{}\", \"{}\")".format(username.get(), full_name.get(), dob.get(),
+                                                                                                            password.get(), email.get(), edu_account.get()))
+            message.config(text="Thank you for signing up!")
+            message.grid(row=7, column=1)
+        except:
+            message.config(text="An error occurred")
+            message.grid(row=7, column=1)
+        # commit changes
+        connection.commit()
+
+        # close connection
+        connection.close()
+
+    # create text boxes and labels
+    username_label = Label(sign_up_frame, text="Username", font=("helvetica", 11))
+    username_label.grid(row=0, column=0)
+    username = ttk.Entry(sign_up_frame, width=30)
+    username.grid(row=0, column=1, padx=30, pady=8)
+
+    full_name_label = Label(sign_up_frame, text="Full name", font=("helvetica", 11))
+    full_name_label.grid(row=1, column=0, pady=7)
+    full_name = ttk.Entry(sign_up_frame, width=30)
+    full_name.grid(row=1, column=1, padx=30, pady=8)
+
+    dob_label = Label(sign_up_frame, text="Date of Birth (YYYY/MM/DD)", font=("helvetica", 11))
+    dob_label.grid(row=2, column=0, pady=7)
+    dob = ttk.Entry(sign_up_frame, width=30)
+    dob.grid(row=2, column=1, padx=30, pady=8)
+
+    password_label = Label(sign_up_frame, text="Password", font=("helvetica", 11))
+    password_label.grid(row=3, column=0, pady=7)
+    password = ttk.Entry(sign_up_frame, width=30)
+    password.grid(row=3, column=1, padx=30, pady=8)
+
+    email_label = Label(sign_up_frame, text="Email Address", font=("helvetica", 11))
+    email_label.grid(row=4, column=0, pady=7)
+    email = ttk.Entry(sign_up_frame, width=30)
+    email.grid(row=4, column=1, padx=30, pady=8)
+
+    edu_account_label = Label(sign_up_frame, text="Edu account (0/1)", font=("helvetica", 11))
+    edu_account_label.grid(row=5, column=0, pady=7)
+    edu_account = ttk.Entry(sign_up_frame, width=30)
+    edu_account.grid(row=5, column=1, padx=30, pady=8)
+
+    close_button = ttk.Button(sign_up_frame, text="Close", command=lambda: [back(sign_up_frame)])
+    close_button.grid(row=6, column=0, pady=10, padx=10, ipadx=20)
+
+    submit_button = ttk.Button(sign_up_frame, text="Sign up", command=lambda: [execute()])
+    submit_button.grid(row=6, column=1, pady=10, padx=10, ipadx=75)
+
+    sign_up_frame.pack(padx=50, pady=50)
+
+
+def search_for_courses():
+    search_course_frame = Frame()
+    search_course_frame.tkraise()
+
+    def execute():
+        # The data returned from the query is shown in a new window
+        tree_window = Tk()
+        tree_window.title("Courses")
+        tree_window.configure(bg="#314455")
+        tree_window.resizable(False, False)
+        width = 700
+        height = 300
+        x = (root.winfo_screenwidth() // 2) - (width // 2)
+        y = (root.winfo_screenheight() // 2) - (height // 2)
+        tree_window.geometry('{}x{}+{}+{}'.format(width, height, x, y))
+
+        connection = mysql.connector.connect(
+            host="localhost",
+            user="root",
+            passwd="776677",
+            database="online_courses"
+        )
+        # create cursor
+        cursor = connection.cursor()
+
+        # query the database
+        cursor.execute(
+            "SELECT name, domain, rating FROM course WHERE name like(\"%{}%\")".format(course_name.get()))
+        records = cursor.fetchall()  # Get whatever the query returned
+        tree = ttk.Treeview(tree_window)  # Create a tree view, easy way to show tables
+
+        # Setup the treeview
+        tree['columns'] = ("name", "domain", "rating")
+        tree.column("#0", width=0)
+        tree.column("name", anchor=W, width=260)
+        tree.column("domain", anchor=W, width=145)
+        tree.column("rating", anchor=W, width=75)
+
+        tree.heading("name", text="Name", anchor=W)
+        tree.heading("domain", text="Domain", anchor=W)
+        tree.heading("rating", text="Rating", anchor=W)
+
+        i = 0
+        for record in records:  # Insert records
+            i += 1
+            tree.insert(parent='', index='end', iid=i, text="Parent", values=(record[0], record[1], record[2]))
+
+        # Add scroll bar
+        scroll_bar_v = ttk.Scrollbar(tree_window, orient="vertical", command=tree.yview)
+        scroll_bar_v.pack(side='right', fill='y')
+        tree.configure(yscrollcommand=scroll_bar_v.set)
+        tree.pack(padx=0, pady=30)  # Show
+
+    # create text boxes and labels
+    course_name_label = Label(search_course_frame, text="Course Name", font=("helvetica", 11))
+    course_name_label.grid(row=0, column=0)
+    course_name = ttk.Entry(search_course_frame, width=30)
+    course_name.grid(row=0, column=1, padx=30, pady=8)
+
+    close_button = ttk.Button(search_course_frame, text="Close", command=lambda: [back(search_course_frame)])
+    close_button.grid(row=6, column=0, pady=10, padx=10, ipadx=10)
+
+    submit_button = ttk.Button(search_course_frame, text="Search", command=lambda: [execute()])
+    submit_button.grid(row=6, column=1, pady=10, padx=10, ipadx=60)
+    search_course_frame.pack()
+
+
+def search_by_source():
+    search_source_frame = Frame()
+    search_source_frame.tkraise()
+
+    def execute():
+        # The data returned from the query is shown in a new window
+        tree_window = Tk()
+        tree_window.title("Courses")
+        tree_window.configure(bg="#314455")
+        tree_window.resizable(False, False)
+        width = 700
+        height = 300
+        x = (root.winfo_screenwidth() // 2) - (width // 2)
+        y = (root.winfo_screenheight() // 2) - (height // 2)
+        tree_window.geometry('{}x{}+{}+{}'.format(width, height, x, y))
+
+        connection = mysql.connector.connect(
+            host="localhost",
+            user="root",
+            passwd="776677",
+            database="online_courses"
+        )
+        # create cursor
+        cursor = connection.cursor()
+
+        # query the database
+        cursor.execute(
+            "SELECT course.name, domain, rating FROM course, source WHERE source.name like(\"%{}%\") AND source.source_id=course.source_id".format(source_name.get()))
+        records = cursor.fetchall()  # Get whatever the query returned
+        tree = ttk.Treeview(tree_window)  # Create a tree view, easy way to show tables
+
+        # Setup the treeview
+        tree['columns'] = ("name", "domain", "rating")
+        tree.column("#0", width=0)
+        tree.column("name", anchor=W, width=260)
+        tree.column("domain", anchor=W, width=145)
+        tree.column("rating", anchor=W, width=75)
+
+        tree.heading("name", text="Name", anchor=W)
+        tree.heading("domain", text="Domain", anchor=W)
+        tree.heading("rating", text="Rating", anchor=W)
+
+        i = 0
+        for record in records:  # Insert records
+            i += 1
+            tree.insert(parent='', index='end', iid=i, text="Parent", values=(record[0], record[1], record[2]))
+
+        # Add scroll bar
+        scroll_bar_v = ttk.Scrollbar(tree_window, orient="vertical", command=tree.yview)
+        scroll_bar_v.pack(side='right', fill='y')
+        tree.configure(yscrollcommand=scroll_bar_v.set)
+        tree.pack(padx=0, pady=30)  # Show
+
+    # create text boxes and labels
+    source_name_label = Label(search_source_frame, text="Source Name", font=("helvetica", 11))
+    source_name_label.grid(row=0, column=0)
+    source_name = ttk.Entry(search_source_frame, width=30)
+    source_name.grid(row=0, column=1, padx=30, pady=8)
+
+    close_button = ttk.Button(search_source_frame, text="Close", command=lambda: [back(search_source_frame)])
+    close_button.grid(row=6, column=0, pady=10, padx=10, ipadx=10)
+
+    submit_button = ttk.Button(search_source_frame, text="Search", command=lambda: [execute()])
+    submit_button.grid(row=6, column=1, pady=10, padx=10, ipadx=60)
+    search_source_frame.pack()
+
+
+def check_enrolled():
+    check_enrolled_frame = Frame()
+    check_enrolled_frame.tkraise()
+
+    def execute():
+        # The data returned from the query is shown in a new window
+        tree_window = Tk()
+        tree_window.title("Enrollments")
+        tree_window.configure(bg="#314455")
+        tree_window.resizable(False, False)
+        width = 700
+        height = 300
+        x = (root.winfo_screenwidth() // 2) - (width // 2)
+        y = (root.winfo_screenheight() // 2) - (height // 2)
+        tree_window.geometry('{}x{}+{}+{}'.format(width, height, x, y))
+
+        connection = mysql.connector.connect(
+            host="localhost",
+            user="root",
+            passwd="776677",
+            database="online_courses"
+        )
+        # create cursor
+        cursor = connection.cursor()
+
+        # query the database
+        cursor.execute(
+            "SELECT full_name, course.name FROM user, course, enrolled "
+            "WHERE user.username like(\"%{}%\") AND enrolled.username=user.username AND enrolled.course_id=course.course_id".format(user_name.get()))
+        records = cursor.fetchall()  # Get whatever the query returned
+        tree = ttk.Treeview(tree_window)  # Create a tree view, easy way to show tables
+
+        # Setup the treeview
+        tree['columns'] = ("name", "enrolled")
+        tree.column("#0", width=0)
+        tree.column("name", anchor=W, width=120)
+        tree.column("enrolled", anchor=W, width=300)
+
+        tree.heading("name", text="Full Name", anchor=W)
+        tree.heading("enrolled", text="Enrolled In", anchor=W)
+
+        i = 0
+        for record in records:  # Insert records
+            i += 1
+            tree.insert(parent='', index='end', iid=i, text="Parent", values=(record[0], record[1]))
+
+        # Add scroll bar
+        scroll_bar_v = ttk.Scrollbar(tree_window, orient="vertical", command=tree.yview)
+        scroll_bar_v.pack(side='right', fill='y')
+        tree.configure(yscrollcommand=scroll_bar_v.set)
+        tree.pack(padx=0, pady=30)  # Show
+
+    # create text boxes and labels
+    user_name_label = Label(check_enrolled_frame, text="Username", font=("helvetica", 11))
+    user_name_label.grid(row=0, column=0)
+    user_name = ttk.Entry(check_enrolled_frame, width=30)
+    user_name.grid(row=0, column=1, padx=30, pady=8)
+
+    close_button = ttk.Button(check_enrolled_frame, text="Close", command=lambda: [back(check_enrolled_frame)])
+    close_button.grid(row=6, column=0, pady=10, padx=10, ipadx=10)
+
+    submit_button = ttk.Button(check_enrolled_frame, text="Search", command=lambda: [execute()])
+    submit_button.grid(row=6, column=1, pady=10, padx=10, ipadx=60)
+    check_enrolled_frame.pack()
+
+
+def search_user():
+    search_user_frame = Frame()
+    search_user_frame.tkraise()
+
+    def execute():
+        # The data returned from the query is shown in a new window
+        tree_window = Tk()
+        tree_window.title("Users")
+        tree_window.configure(bg="#314455")
+        tree_window.resizable(False, False)
+        width = 600
+        height = 300
+        x = (root.winfo_screenwidth() // 2) - (width // 2)
+        y = (root.winfo_screenheight() // 2) - (height // 2)
+        tree_window.geometry('{}x{}+{}+{}'.format(width, height, x, y))
+
+        connection = mysql.connector.connect(
+            host="localhost",
+            user="root",
+            passwd="776677",
+            database="online_courses"
+        )
+        # create cursor
+        cursor = connection.cursor()
+
+        # query the database
+        cursor.execute("SELECT full_name, date_of_birth, email FROM user WHERE username like(\"%{}%\")".format(username.get()))
+        records = cursor.fetchall()  # Get whatever the query returned
+        tree = ttk.Treeview(tree_window)  # Create a tree view, easy way to show tables
+
+        # Setup the treeview
+        tree['columns'] = ("Full name", "Date of Birth", "Email")
+        tree.column("#0", width=0)
+        tree.column("Full name", anchor=W, width=120, minwidth=30)
+        tree.column("Date of Birth", anchor=W, width=100, minwidth=30)
+        tree.column("Email", anchor=W, width=250, minwidth=30)
+
+        tree.heading("Full name", text="Full Name", anchor=W)
+        tree.heading("Date of Birth", text="DoB", anchor=W)
+        tree.heading("Email", text="Email", anchor=W)
+
+        i = 0
+        for record in records:  # Insert records
+            i += 1
+            tree.insert(parent='', index='end', iid=i, text="Parent", values=(record[0], record[1], record[2]))
+
+        # Add scroll bar
+        scroll_bar = ttk.Scrollbar(tree_window, orient="vertical", command=tree.yview)
+        scroll_bar.pack(side='right', fill='y')
+        tree.configure(yscrollcommand=scroll_bar.set)
+        tree.pack(pady=30)  # Show
+
+    # create text boxes and labels
+    username_label = Label(search_user_frame, text="Username", font=("helvetica", 11))
+    username_label.grid(row=0, column=0)
+    username = ttk.Entry(search_user_frame, width=30)
+    username.grid(row=0, column=1, padx=30, pady=8)
+
+    close_button = ttk.Button(search_user_frame, text="Close", command=lambda: [back(search_user_frame)])
+    close_button.grid(row=6, column=0, pady=10, padx=10, ipadx=10)
+
+    submit_button = ttk.Button(search_user_frame, text="Search", command=lambda: [execute()])
+    submit_button.grid(row=6, column=1, pady=10, padx=10, ipadx=60)
+    search_user_frame.pack()
+
+
+# Welcome window
+windll.shcore.SetProcessDpiAwareness(1)  # To make the text appear clearer
+root = Tk()
+root.title("Welcome")
+root.configure(bg="#314455")
+width = root.winfo_screenwidth()
+height = root.winfo_screenheight()
+x = (root.winfo_screenwidth() // 2) - (width // 2)
+y = (root.winfo_screenheight() // 2) - (height // 2)
+root.geometry('{}x{}+{}+{}'.format(width, height, x, y))  # Doing this procedure so the window appears in the middle of the screen
+main_window_frame = Frame(root)
+
+# add welcome text box
+options_label = Label(root, text="Online Courses Database", font=("Times new roman", 22), bg="#314455", fg="white")
+options_label.pack(pady=40)
+
+# add buttons
+sign_up = Button(main_window_frame, text="Add Account", font=("Helvetica", 12), command=sign_up, bg="#97AABD")
+sign_up.grid(row=1, pady=5)
+
+show_users = Button(main_window_frame, text="Search User", font=("Helvetica", 12), command=search_user,
+                    bg="#97AABD")
+show_users.grid(row=2, pady=5)
+
+check_enrollments = Button(main_window_frame, text="See User Enrollments", font=("Helvetica", 12),
+                           command=check_enrolled, bg="#97AABD")
+check_enrollments.grid(row=3, pady=5)
+
+search_for_courses = Button(main_window_frame, text="Search Courses by Name", font=("Helvetica", 12),
+                            command=search_for_courses, bg="#97AABD")
+search_for_courses.grid(row=4, pady=5)
+
+search_by_source = Button(main_window_frame, text="Search Courses by University/Institution", font=("Helvetica", 12),
+                          command=search_by_source, bg="#97AABD")
+search_by_source.grid(row=5, pady=5)
+
+main_window_frame.configure(bg="#314455")
+main_window_frame.pack(pady=25)
+root.mainloop()  # Show the window
