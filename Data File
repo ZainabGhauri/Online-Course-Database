@@ -1,0 +1,101 @@
+
+  INSERT INTO Provider VALUES (210 , "Class Central" , 15000 ,"https://www.classcentral.com/","Love to learn? Discover thousands of FREE online courses and MOOCs from top universities and companies on Class Central.",120000) , 
+  (211 , "edX" , 4095 ,"https://www.edx.org/","EdX offers interactive online classes and MOOCs from the world’s best universities. Online courses from MITx, HarvardX, BerkeleyX, UTx and many other universities.",110000), 
+  (212,"Coursera",6419,"https://www.coursera.org/","Coursera is an education platform that partners with top universities and organizations worldwide, to offer courses online for anyone to take, for free.",475000),
+  (213,"Udacity",304,"https://www.udemy.com/","Udacity was born out of a Stanford University experiment in which Sebastian Thrun and Peter Norvig offered their course online to anyone, for free. Over 160,000 students in more than 190 countries enrolled and not much later, Udacity was born.",180000),
+  (214,"Swayam",1843,"https://www.classcentral.com/provider/swayam","SWAYAM is India’s national MOOC platform. It offers over 2,150 courses taught by close to 1,300 instructors from over 135 Indian universities. One aspect that sets it apart from other providers is that it allows students in India to earn academic credit online",35000);
+
+
+  INSERT INTO source VALUES (310,"Massachusetts Institute of Technology via edX Help",255,"https://www.classcentral.com/university/mit",330000,"The Massachusetts Institute of Technology is a private research university in Cambridge, Massachusetts known traditionally for research and education in the physical sciences and engineering, and more ..."),
+  (311,"Google",434,"https://www.classcentral.com/institution/google",4900,"Google is an American multinational corporation specializing in Internet-related services and products. These include search, cloud computing, software, and online advertising technologies. Most of its profits are derived from AdWords"),
+  (312,"Microsoft",304,"https://www.classcentral.com/institution/microsoft",1100,"Microsoft Corporation is an American multinational corporation headquartered in Redmond, Washington, that develops, manufactures, licenses, supports and sells computer software, consumer electronics and personal computers and services"),
+  (313,"Wageningen University",57,"https://www.classcentral.com/university/wageningenur",26700,"Wageningen University and Research Centre is a Dutch public university in Wageningen, Netherlands. It consists of Wageningen University and the former agricultural research institutes of the Dutch Ministry of Agriculture"),
+  (314,"Harvard University",193,"https://www.classcentral.com/university/harvard", 580400 ,"Harvard University is a private Ivy League research university in Cambridge, Massachusetts. Harvard has the largest financial endowment of any academic institution in the world, standing at 30 billion as of September 2012. Its history, influence and wealth have made it one of the most prestigious universities in the world"),
+  (315,"Stanford University ",256,"https://www.classcentral.com/university/stanford",504600,"Leland Stanford Junior University, commonly referred to as Stanford University or simply Stanford, is a private research university in Stanford, California in the northwestern Silicon Valley near Palo Alto. It is one of the most prestigious universities in the world."),
+  (316,"The Hong Kong University of Science and Technology",71,"https://www.classcentral.com/university/hkust",67300,"The Hong Kong University of Science and Technology is a public research university situated at the northern part of Clear Water Bay Peninsula in Sai Kung District, New Territories, Hong Kong, occupying a site overlooking Port Shelter in Tai Po Tsai"),
+  (317,"Cloudera",5,"https://www.classcentral.com/institution/clouder",29000,"Cloudera Inc. is an American-based software company that provides Apache Hadoop-based software, support and services, and training to business customers."),
+  (318,"Indian Institute of Technology, Kharagpur",272,"https://www.classcentral.com/university/iit-kharagpur",84800,"Indian Institute of Technology, Kharagpur");
+
+    INSERT INTO User VALUES ("twaheed123","Talha Waheed",'2002-06-19',"coolCR420","twaheedbscs19seecs@seecs.edu.pk",'Y','Y'),
+    ("mamir123","Mutahar Amir",'2000-11-10',"whatislife","mamirbscs19seecs@seecs.edu.pk",'Y','N'),
+    ("zghauri123","Zainab Ghauri",'2002-07-17',"batman…","zghauribscs19seecs@seecs.edu.pk",'Y','Y'),
+    ("zbibi123","Zaira Bibi",'2000-12-11',"xyz123","zaira.2522@gmail.com",'N','Y'),
+    ("amalik123","Aimen Malik",'1999-09-17' , "lmn123","amalikbscs19seecs@seecs.edu.pk",'Y','N'),
+    ("hashraf123","Haseeb Ashraf",'2000-06-19',"wxy123","lahorelahoreae@gmail.com",'N','Y'),
+    ("kagha123","Kainat Agha",'2001-11-27',"efg123","kaghabsse19seecs@seecs.edu.pk",'Y','N'),
+    ("rraees123","Raiha Raees",'2002-08-17',"pol123","rraeesbsee19seecs@seecs.edu.pk",'Y','N'),
+    ("jbaba123","Jahangir Babar",'2000-11-22',"ijk123","jbabarbscs19seecs@seecs.edu.pk",'Y','Y'),
+	("sfarooki123","Saleha Zahra",'2002-01-10',"imtired225","sfarookibscs19seecs@seecs.edu.pk",'Y','Y'),
+   ("atariq123","Aisha Tariq",'2002-02-09',"lastminutesub","atariqbscs19seecs@seecs.edu.pk",'Y','N');
+
+  INSERT INTO Course VALUES (101,"Basic Circuit Analysis","Engineering","7 weeks","169",12100,4.5,"Medium","Want to learn about circuits and electronics, but unsure where to begin? Wondering how to make computers run faster or your mobile phone battery last longer? This free circuits course taught by edX CEO and MIT Professor Anant Agarwal and colleagues is for you.",210,310),
+  (102,"Devolping Android Apps","Programming","10 weeks","60",1500,3.5,"Hard","As the first course in the Android Developer Nanodegree, Developing Android Apps is the foundation of our advanced Android curriculum. This course blends theory and practice to help you build great apps the right way. In this course, you'll work with instructors step-by-step to build a cloud-connected Android app, and learn best practices of mobile development, and Android development in particular.",210,311),
+  (103,"Introduction to Python for Data Science","Data Science","6 weeks","60",726,4,"Easy","Python is a very powerful programming language used for many different applications. Over time, the huge community around this open source language has created quite a few tools to efficiently work with Python. In recent years, a number of tools have been built specifically for data science. As a result, analyzing data with Python has never been easier.",211,312),
+  (104,"Nutrition, Heart Disease and Diabetes","Health and Medicine","5 weeks","99",4200,4.5,"Medium","Learn about the role of nutrition in relation to diseases of the circulatory system and diabetes, which are major causes of death worldwide. You'll learn about the etiology of heart attacks, type 2 diabetes, stroke, other forms of cardiovascular diseases and how often these occur worldwide. You will learn about biological modifiable risk factors, such as blood pressure, blood cholesterol and obesity, and how they impact these diseases in a different way.",211,313),
+  (105,"Justice","Social Sciences","12 weeks","120",59200,5,"Medium","Taught by lauded Harvard professor Michael Sandel, Justice explores critical analysis of classical and contemporary theories of justice, including discussion of present-day applications. Topics include affirmative action, income distribution, same-sex marriage, the role of markets, debates about rights (human rights and property rights), arguments for and against equality, dilemmas of loyalty in public and private life. The course invites learners to subject their own views on these controversies to critical examination.",211,314),
+  (106,"Machine Learning","Computer Science","11 weeks","79",64100,4.5,"Hard","Machine learning is the science of getting computers to act without being explicitly programmed. In the past decade, machine learning has given us self-driving cars, practical speech recognition, effective web search, and a vastly improved understanding of the human genome",212,315),
+  (107,"Matrix Algebra for Engineers","Algebra and Geometry","4 weeks","80",14100,5,"Medium","This course is all about matrices, and concisely covers the linear algebra that an engineer should know. The mathematics in this course is presented at the level of an advanced high school student, but typically students should take this course after completing a university-level single variable calculus course. ",212,316),
+  (108,"Introduction to Artificial Intelligence","Computer Science","16 weeks","20",7400,4,"Hard","Artificial Intelligence (AI) is a field that has a long history but is still constantly and actively growing and changing. In this course, you’ll learn the basics of modern AI as well as some of the representative applications of AI. Along the way, we also hope to excite you about the numerous applications and huge possibilities in the field of AI, which continues to expand human capability beyond our imagination.",213,315),
+  (109,"Intro to Hadoop and MapReduce","Data Science","4 weeks","65",1100,4,"Hard","The Apache™ Hadoop® project develops open-source software for reliable, scalable, distributed computing. Learn the fundamental principles behind it, and how you can use its power to make sense of your Big Data.",213,317),
+  (110,"Embedded Systems Design","Engineering","12 weeks","95",89,4,"Medium","This course on Embedded systems will first the students to the fundamental requirements of embedded systems and the interaction between hardware and software in such systems. Next the course will discuss some basic steps of hardware design, introduce the students to ASIPs, ASICs and FPGAs. Next, the students will be exposed to the very important issue of designing for less power consumption and introduce them to the techniques that are adopted to this end.",214,318);
+
+
+  INSERT INTO enrolled VALUES ("twaheed123",101,'Y'),("twaheed123",105,'N')
+   ,("mamir123",101,'Y'),("mamir123",103,'Y'),
+   ("mamir123",107,'N'),("zbibi123",106,'N'),("zbibi123",104,'N'),("zghauri123",102,'Y'),("zghauri123",110,'N'),
+   ("amalik123",108,'Y'),("hashraf123",109,'Y'),("hashraf123",102,'Y'),("kagha123",110,'Y'),("kagha123",108,'N'),
+   ("kagha123",107,'Y'),("rraees123",108,'N'),("rraees123",101,'N'),("jbaba123",103,'Y'),("jbaba123",105,'Y'),
+   ("sfarooki123",106,'N'),("sfarooki123",104,'Y'),("atariq123",109,'N');
+
+
+  INSERT INTO reviews VALUES ("twaheed123",101,"The course is very good for beginners and lab experiments related to sensors are good .Explanation of concepts with real time applications is a good asset of this course" )
+   ,("mamir123",103," The course had helped in understanding the concepts of NumPy and pandas. The assignments were so helpful to apply these concepts which provide an in-depth understanding of the Numpy as well as pandans"),
+    ("zbibi123",106," Very good coverage of different supervised and unsupervised algorithms, and lots of practical insights around implementation. All the explanations provided helped to understand the concepts very well."),
+    ("sfarooki123",104,"From the title of the course, it appears that this course should be focusing on nutritional therapy for cardiometabolic diseases. However, the course didn't really focus on that and largely focused on the pathophysiology, genetics and epigenetics. " ),
+    ("atariq123",109,"Great Introduction to Big Data! ")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
