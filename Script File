@@ -1,0 +1,65 @@
+CREATE TABLE `Provider` (
+  `provider_id` int,
+  `name` varchar(30),
+  `course_count` int,
+  `link` varchar(150),
+  `description` varchar(500),
+  `followers` int,
+  PRIMARY KEY (`provider_id`)
+);
+
+CREATE TABLE `Source` (
+  `source_id` int,
+  `name` varchar(100),
+  `courses_offered` int,
+  `link` varchar (150),
+  `followers` int,
+  `description` varchar(500),
+  PRIMARY KEY (`source_id`)
+);
+
+CREATE TABLE `User` (
+  `username` varchar(15),
+  `full_name` varchar(15),
+  `date_of_birth` date,
+  `password` varchar(30),
+  `email` varchar(75),
+  `edu_account` char,
+  `pro_account` char,
+  PRIMARY KEY (`username`)
+);
+
+CREATE TABLE `Course` (
+  `course_id` int,
+  `name` varchar(50),
+  `domain` varchar(20),
+  `est_time_of_completion` varchar(15),
+  `cost` int,
+  `enrolled_count` int,
+  `rating` float,
+  `level` varchar(15),
+  `description` varchar(750),
+  `provider_id` int,
+  `source_id` int,
+  PRIMARY KEY (`course_id`),
+  FOREIGN KEY (source_id) REFERENCES source(source_id),
+  FOREIGN KEY (provider_id) REFERENCES provider(provider_id)
+);
+
+CREATE TABLE `Enrolled` (
+  `username` varchar(15),
+  `course_id` int,
+  `completed_status` char,
+  KEY `CK` (`username`, `course_id`),
+  FOREIGN KEY (username) REFERENCES user(username),
+  FOREIGN KEY (course_id) REFERENCES course(course_id)
+);
+
+CREATE TABLE `Reviews` (
+  `username` varchar(15),
+  `course_id` int,
+  `review` varchar(750),
+  KEY `CK` (`username`, `course_id`),
+    FOREIGN KEY (username) REFERENCES user(username),
+  FOREIGN KEY (course_id) REFERENCES course(course_id)
+);
