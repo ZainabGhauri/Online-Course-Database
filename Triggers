@@ -1,0 +1,47 @@
+ CREATE TRIGGER course_trigger
+ BEFORE INSERT 
+ ON course
+ FOR EACH ROW
+ SET 
+ new.domain = null ,
+ new.est_time_of_completion="not specified",
+ new.cost=null,
+ new.enrolled_count=null,
+ new.rating=null,
+ new.level=null,
+ new.description="-";
+
+ CREATE TRIGGER user_trigger
+ BEFORE INSERT 
+ ON user
+ FOR EACH ROW
+ SET 
+ new.full_name = null ,
+ new.date_of_birth ="-",
+ new.password =null,
+ new.email=null,
+ new.edu_account=null,
+ new.pro_account=null;
+
+ CREATE TRIGGER provider_trigger
+ BEFORE INSERT 
+ ON provider
+ FOR EACH ROW
+ SET 
+ new.name = null ,
+ new.course_count = null,
+ new.link =null,
+ new.followers=null,
+ new.description="-" ;
+
+ CREATE TRIGGER source_trigger
+ BEFORE INSERT 
+ ON source
+ FOR EACH ROW
+ SET 
+ new.name = null ,
+ new.courses_offered = null,
+ new.link =null,
+ new.followers=null,
+ new.description="-" ;
+
